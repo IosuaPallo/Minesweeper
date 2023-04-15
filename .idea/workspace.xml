@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="780466af-6823-429d-9b10-2fc05781caef" name="Changes" comment="Add BlockPanel.java and GUI.Java">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/Timer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/BlockPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/BlockPanel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/GUI.java" afterDir="false" />
@@ -65,7 +66,7 @@
       <option name="presentableId" value="Default" />
       <updated>1681154703186</updated>
       <workItem from="1681154703870" duration="1132000" />
-      <workItem from="1681489525008" duration="12988000" />
+      <workItem from="1681489525008" duration="17549000" />
     </task>
     <task id="LOCAL-00001" summary="Add BlockPanel.java and GUI.Java">
       <created>1681500570437</created>

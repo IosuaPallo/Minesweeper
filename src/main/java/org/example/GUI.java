@@ -8,36 +8,49 @@ public class GUI {
 
     public JFrame window;
     BlockPanel[][] panels;
-    
-    JPanel panelsV2;
+    Button[][] buttons;
+
+    Button resetButton;
+
+    JPanel jobsPanel;
+    JPanel blocksPanel;
     int numberPanelsX, numberPanelsY;
     int numberRevealed;
     GUI(int numberPanelsX, int numberPanelsY)  {
         this.numberPanelsX = numberPanelsX;
         this.numberPanelsY = numberPanelsY;
         panels = new BlockPanel[numberPanelsY][numberPanelsX];
-        panelsV2 = new JPanel(new GridLayout(numberPanelsX,numberPanelsY));
+
+
+        blocksPanel = new JPanel(new GridLayout(numberPanelsY,numberPanelsX));
         window = new JFrame();
+        buttons = new Button[numberPanelsY][numberPanelsX];
+        jobsPanel = new JPanel(new GridLayout(1,3));
+        resetButton = new Button();
     }
 
     public void setUpGUI(){
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         int number = 0, panelWidth,panelHeight;
 
-        window.setSize(100*numberPanelsX+50, 100*numberPanelsY+50);
+        window.setSize(50*numberPanelsX+10, 51*numberPanelsY+90);
 
+        jobsPanel.setBorder(border);
+        jobsPanel.setBounds(0,0,50*numberPanelsX,50);
+        jobsPanel.add(new Button());
+        jobsPanel.add(resetButton);
+        jobsPanel.add(new Button());
+
+        blocksPanel.setBounds(0,50,50*numberPanelsX, 50*numberPanelsY);
         for(int i=0;i<numberPanelsY;i++) {
             for (int j = 0; j < numberPanelsX; j++) {
-                panelWidth = 20 + 80 * j;
-                panelHeight = 20 + 80 * i;
-                panels[i][j] = new BlockPanel(panelWidth, panelHeight);
-                panels[i][j].setBackground(Color.ORANGE);
-                panels[i][j].setForeground(Color.RED);
-                panels[i][j].setBorder(border);
-                window.add(panels[i][j]);
+                buttons[i][j] = new Button();
+                blocksPanel.add(buttons[i][j]);
             }
         }
-        window.add(panelsV2);
+
+        window.add(blocksPanel);
+        window.add(jobsPanel);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setLocationRelativeTo(null);
         window.setVisible(true);
