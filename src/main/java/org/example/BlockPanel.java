@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class BlockPanel extends JPanel  {
+public class BlockPanel extends JLayeredPane  {
     private int width;
     private int height;
 
@@ -13,14 +13,15 @@ public class BlockPanel extends JPanel  {
     BlockPanel(int width, int height){
         this.width = width;
         this.height = height;
+        setPreferredSize(new Dimension(80,80));
     }
     public void paint(Graphics g){
         Graphics2D graphics2D = (Graphics2D) g;
         if(tapped == false) {
-            graphics2D.fillRect(width, height, 100, 100);
+            graphics2D.drawRect(width, height, 80, 80);
         }
         else{
-            graphics2D.drawRect(width,height,100,100);
+            graphics2D.drawRect(width,height,80,80);
         }
     }
 
