@@ -1,40 +1,103 @@
 package org.example;
-import java.awt.Point;
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.util.Random;
 
-public class Board {
-    private int boardWidth;
-    private int boardHeight;
+public class Board extends JPanel {
+    private int numberPanelsWidth;
+    private int numberPanelsHeight;
     private int minesNumber;
+    private int minesRemaining;
     private int[][] map;
+    private boolean[][] revealed;
     private Point[] neighbours;
 
+    private JPanel storagePanel, squaresPanel,resultPanel, resetPanel, timerPanel,minesRemainingPanel;
+
+    private Button resetButton;
+
+    private Timer timer;
+
+
     public Board(int width, int height, int minesNumber) {
-        super();
-        this.boardWidth = width;
-        this.boardHeight = height;
+
+        super(new GridLayout(4,1));
+        this.numberPanelsWidth = width;
+        this.numberPanelsHeight = height;
         this.minesNumber = minesNumber;
+        this.minesRemaining = minesNumber;
         this.map = new int[height][width];
-        for (int i = 0; i < this.boardHeight; i++) {
-            for (int j = 0; j < this.boardWidth; j++) {
+        this.revealed = new boolean[height][width];
+        for (int i = 0; i < this.numberPanelsHeight; i++) {
+            for (int j = 0; j < this.numberPanelsWidth; j++) {
                 this.map[i][j] = 0;
+                this.revealed[i][j] = false;
             }
         }
         this.setNeighbours();
         this.randomMines();
+        timer = new Timer();
+        setUpBoard();
+    }
+
+    public void setUpBoard() {
+        storagePanel = new JPanel(new GridLayout(1, 2));
+        squaresPanel = new JPanel(new GridLayout(numberPanelsHeight, numberPanelsWidth));
+        resetPanel = new JPanel();
+        resultPanel = new JPanel();
+        timerPanel = new JPanel();
+        minesRemainingPanel = new JPanel();
+        resetButton = new Button();
+
+        resetButton.setBounds(0,0,resetPanel.getWidth(),resetPanel.getHeight());
+        resetPanel.add(resetButton);
+
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+
+        JLabel minesRemainingLabel = new JLabel(String.valueOf(this.minesRemaining));
+        minesRemainingLabel.setFont(new Font("Arial", 0, 30));
+        JLabel timeLabel = new JLabel(String.valueOf(timer.getSeconds()));
+        timeLabel.setFont(new Font("Arial", 0, 30));
+
+        timerPanel.add(timeLabel);
+        minesRemainingPanel.add(minesRemainingLabel);
+
+        storagePanel.add(minesRemainingPanel);
+        storagePanel.add(timerPanel);
+
+        storagePanel.setBorder(border);
+        squaresPanel.setBorder(border);
+        resetPanel.setBorder(border);
+        resultPanel.setBorder(border);
+
+        for (int i = 0; i < numberPanelsHeight; i++) {
+            for (int j = 0; j < numberPanelsWidth; j++) {
+
+            }
+        }
+        storagePanel.setBounds(10, 10, 30 * numberPanelsWidth, 50);
+        squaresPanel.setBounds(10, 60, 30 * numberPanelsWidth, 30 * numberPanelsHeight);
+        resetPanel.setBounds(10, squaresPanel.getY(), 30 * numberPanelsWidth, 50);
+        resultPanel.setBounds(10, resetPanel.getY(), 30 * numberPanelsWidth, 50);
+
+        add(storagePanel);
+        add(squaresPanel);
+        add(resetPanel);
+        add(resultPanel);
     }
 
     private void randomMines() {
         Random random = new Random();
         for (int i = 0; i < this.minesNumber; i++) {
-            int rowRandom = random.nextInt(boardHeight);
-            int columnRandom = random.nextInt(boardWidth);
+            int rowRandom = random.nextInt(numberPanelsHeight);
+            int columnRandom = random.nextInt(numberPanelsWidth);
             this.map[rowRandom][columnRandom] = -1;
             for (int j = 0; j < 8; j++) {
                 int row = rowRandom + this.neighbours[j].x;
                 int column = columnRandom + this.neighbours[j].y;
-                if(row>=0 && row <this.boardHeight) {
-                    if(column>=0 && column<this.boardWidth) {
+                if(row>=0 && row <this.numberPanelsHeight) {
+                    if(column>=0 && column<this.numberPanelsWidth) {
                         if(this.map[row][column]!=-1) {
                             this.map[row][column] += 1;
                         }
@@ -56,8 +119,8 @@ public class Board {
     }
 
     public void draw(){
-        for(int i = 0; i<this.boardHeight; i++){
-            for(int j = 0; j<this.boardWidth; j++){
+        for(int i = 0; i<this.numberPanelsHeight; i++){
+            for(int j = 0; j<this.numberPanelsWidth; j++){
                 System.out.print(this.map[i][j] + "\t");
             }
             System.out.println();
