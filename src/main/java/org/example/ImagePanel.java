@@ -12,6 +12,5 @@ public class ImagePanel extends JPanel {
 
     public void paint(Graphics g){
         Graphics2D graphics2D = (Graphics2D) g;
-        graphics2D.
     }
 }

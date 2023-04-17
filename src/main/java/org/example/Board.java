@@ -13,6 +13,8 @@ public class Board extends JPanel {
     private boolean[][] revealed;
     private Point[] neighbours;
 
+    private Image[] images;
+
     private JPanel storagePanel, squaresPanel,resultPanel, resetPanel, timerPanel,minesRemainingPanel;
 
     private Button resetButton;
@@ -22,7 +24,7 @@ public class Board extends JPanel {
 
     public Board(int width, int height, int minesNumber) {
 
-        super(new GridLayout(4,1));
+        setSize(new Dimension(30*numberPanelsWidth+40, 30*numberPanelsHeight+150));
         this.numberPanelsWidth = width;
         this.numberPanelsHeight = height;
         this.minesNumber = minesNumber;
@@ -38,6 +40,11 @@ public class Board extends JPanel {
         this.setNeighbours();
         this.randomMines();
         timer = new Timer();
+        images = new Image[13];
+        for(int i=0;i<13;i++){
+            String path = "Images/" + i + ".png";
+            images[i] = new ImageIcon(path).getImage();
+        }
         setUpBoard();
     }
 
@@ -73,11 +80,12 @@ public class Board extends JPanel {
 
         for (int i = 0; i < numberPanelsHeight; i++) {
             for (int j = 0; j < numberPanelsWidth; j++) {
-
+                JLabel pictureLabel = new JLabel(new ImageIcon(images[10]));
+                squaresPanel.add(pictureLabel);
             }
         }
         storagePanel.setBounds(10, 10, 30 * numberPanelsWidth, 50);
-        squaresPanel.setBounds(10, 60, 30 * numberPanelsWidth, 30 * numberPanelsHeight);
+        squaresPanel.setBounds(10, 80, 30 * numberPanelsWidth, 30 * numberPanelsHeight);
         resetPanel.setBounds(10, squaresPanel.getY(), 30 * numberPanelsWidth, 50);
         resultPanel.setBounds(10, resetPanel.getY(), 30 * numberPanelsWidth, 50);
 
