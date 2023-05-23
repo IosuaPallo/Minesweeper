@@ -1,10 +1,18 @@
 package org.example;
 
-public class Timer extends Thread{
-    private int seconds;
+import javax.swing.*;
+import java.awt.*;
 
+public class Timer extends Thread {
+    private int seconds;
+    private boolean stop=true;
     public Timer(){
         this.seconds=0;
+    }
+
+    public Timer setStop() {
+        this.stop = true;
+        return this;
     }
 
     public void resetTimer() {
@@ -16,14 +24,18 @@ public class Timer extends Thread{
 
 
     @Override
-    public void run(){
-        while(true){
+    public void run() {
+        seconds=0;
+        stop=false;
+        while (!stop) {
             try {
-                Thread.sleep(990);
+                Thread.sleep(998);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
             seconds++;
         }
     }
+
+
 }
