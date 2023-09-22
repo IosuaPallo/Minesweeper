@@ -37,9 +37,8 @@ public class BoardPanel extends JPanel {
         storagePanel = new JPanel(new GridLayout(1, 2));
         resultPanel = new JPanel();
         minesRemainingPanel = new JPanel();
-        timerPanel = new TimerPanel(board.timer.getSeconds());
         squaresPanel = new SquaresPanel();
-
+        timerPanel = new TimerPanel();
 
         Border border = BorderFactory.createLineBorder(Color.BLACK);
 
@@ -93,6 +92,11 @@ public class BoardPanel extends JPanel {
                 int j = width / 30;
 
                 if (width < numberPanelsWidth * 30 && height < numberPanelsHeight * 30) {
+                    if(!board.pressedFirst){
+                        board.pressedFirst=true;
+                        timerPanel.start();
+                        timerPanel.repaint();
+                    }
                     if (event.getButton() == MouseEvent.BUTTON3) {
                         paint = board.rightClick(i,j);
 
@@ -102,7 +106,6 @@ public class BoardPanel extends JPanel {
 
                     }
                     if (paint) {
-                        System.out.println(board.minesRemaining);
                         minesRemainingLabel.setText(String.valueOf(board.minesRemaining));
                         repaint();
                     }
@@ -171,6 +174,7 @@ public class BoardPanel extends JPanel {
             if (uncover == 0 && !board.gameOver) {
                 JLabel resultLabel = new JLabel("Win");
                 resultPanel.add(resultLabel);
+                board.gameOver=true;
             }
             else if (board.gameOver) {
                 JLabel resultLabel = new JLabel("Lost");

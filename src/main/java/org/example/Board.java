@@ -17,17 +17,10 @@ public class Board {
     public int minesRemaining;
     public int[][] map;
     public Point[] neighbours;
-
-    public Timer timer;
-
-
     public boolean gameOver;
     public boolean pressedFirst;
-
     Board(){
-
         this.setNeighbours();
-        timer = new Timer();
     }
 
     public void setUpBoard(int width, int height, int minesNumber){
@@ -43,8 +36,6 @@ public class Board {
                 this.map[i][j] = COVER;
             }
         }
-
-        timer.resetTimer();
         this.randomMines();
 
         gameOver=false;
@@ -106,7 +97,6 @@ public class Board {
     public boolean rightClick(int i, int j){
         if (! pressedFirst) {
             pressedFirst = true;
-            timer.start();
         }
         if((i>=0 && i<numberPanelsHeight) &&(j>=0 && j<numberPanelsWidth) ) {
             if (map[i][j] > MINE) {
@@ -128,7 +118,6 @@ public class Board {
     public boolean leftClick(int i,int j){
         if (!pressedFirst) {
             pressedFirst = true;
-            timer.start();
         }
         if((i>=0 && i<numberPanelsHeight) &&(j>=0 && j<numberPanelsWidth) ) {
             if (map[i][j] > COVER_MINE) {
@@ -137,7 +126,6 @@ public class Board {
             if (map[i][j] > MINE && map[i][j] < MARK_MINE) {
                 map[i][j] -= COVER;
                 if (map[i][j] == MINE) {
-                    timer.setStop();
                     gameOver = true;
                 }
                 if (map[i][j] == 0) {
